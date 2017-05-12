@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,21 +43,28 @@ public class ComputerTest {
 
     @Test
     public void ComputerWithOnlyRequiredComponentsPrice() {
-        Computer computer = new Computer(intelMotherBoard, powerSupply, hardDriveDisk, new ArrayList<>());
+        Computer computer = new ComputerBuilder()
+                                .withHardDriveDisk(hardDriveDisk)
+                                .withMotherBoard(intelMotherBoard)
+                                .withPowerSupply(powerSupply)
+                                .build();
         Assert.assertEquals(computer.price(), new BigDecimal(452));
 
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected=ComputerDoesNotHaveRequiredComponents.class)
     public void computerLackOfARequiredComponentShouldRaisedException() {
-        Computer computer = new Computer(intelMotherBoard, null, hardDriveDisk, new ArrayList<>());
-
-        computer.price();
+                 new ComputerBuilder().withHardDriveDisk(hardDriveDisk).build();
     }
 
     @Test
     public void ComputerWithRequiredAndOptionalComponentsPrice() {
-        Computer computer = new Computer(intelMotherBoard, powerSupply, hardDriveDisk, optionalComponents);
+        Computer computer = new ComputerBuilder()
+                .withHardDriveDisk(hardDriveDisk)
+                .withMotherBoard(intelMotherBoard)
+                .withPowerSupply(powerSupply)
+                .withOptionalComponents(optionalComponents)
+                .build();
         Assert.assertEquals(computer.price(), new BigDecimal(617));
     }
 }
