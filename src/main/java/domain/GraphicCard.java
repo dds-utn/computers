@@ -2,7 +2,7 @@ package domain;
 
 import java.math.BigDecimal;
 
-public class GraphicCard {
+public class GraphicCard implements OptionalComponent {
     BigDecimal storage;
     BigDecimal speed;
 

@@ -1,4 +1,11 @@
 package domain;
 
-public class SolidStateDisk {
+import java.math.BigDecimal;
+
+public class SolidStateDisk implements OptionalComponent{
+    private BigDecimal price;
+
+    public BigDecimal price() {
+        return price;
+    }
 }

@@ -1,14 +1,11 @@
 package domain;
 
+import java.util.List;
+
 public class Computer {
     Motherboard motherboard;
     PowerSupply powerSupply;
     HardDriveDisk hardDriveDisk;
 
-
-    GraphicCard graphicCard;
-    CoolerSystem coolerSystem;
-    SolidStateDisk solidStateDisk;
-    WiFiAntenna wiFiAntenna;
-
+    List<OptionalComponent> optionalComponents;
 }
