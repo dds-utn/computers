@@ -10,9 +10,7 @@ import java.util.List;
 
 public class ComputerTest {
 
-    private Motherboard intelMotherBoard;
-    private PowerSupply powerSupply;
-    private HardDriveDisk hardDriveDisk;
+    private MotherBoardFactory amdMotherBoardFactory = new AmdMotherBoardFactory(new BigDecimal(150));
     private List<OptionalComponent> optionalComponents;
 
     @Before
@@ -22,30 +20,28 @@ public class ComputerTest {
         GraphicCard graphicCard = new GraphicCard(new BigDecimal(3000), new BigDecimal(100));
         SolidStateDisk solidStateDisk = new SolidStateDisk(new BigDecimal(50));
         this.optionalComponents = Arrays.asList(cooler, wiFiAntenna, graphicCard, solidStateDisk);
-
         //nvidia funciona solo con intel y amd solo con amd
-
-
     }
 
     @Test
     public void ComputerWithOnlyRequiredComponentsPrice() {
         Computer computer = new ComputerBuilder()
-                                .highPerformanceAmdComputer()
-                                .build();
+                .highPerformanceComputer(amdMotherBoardFactory)
+                .build();
         Assert.assertEquals(computer.price(), new BigDecimal(452));
 
     }
 
-    @Test(expected=ComputerDoesNotHaveRequiredComponents.class)
+    @Test(expected = ComputerDoesNotHaveRequiredComponents.class)
     public void computerLackOfARequiredComponentShouldRaisedException() {
-                 new ComputerBuilder().withHardDriveDisk(hardDriveDisk).build();
+        HardDriveDisk hardDriveDisk = new HardDriveDisk(new BigDecimal(30000), new BigDecimal(1000));
+        new ComputerBuilder().withHardDriveDisk(hardDriveDisk).build();
     }
 
     @Test
     public void ComputerWithRequiredAndOptionalComponentsPrice() {
         Computer computer = new ComputerBuilder()
-                .highPerformanceAmdComputer()
+                .highPerformanceComputer(amdMotherBoardFactory)
                 .withOptionalComponents(optionalComponents)
                 .build();
         Assert.assertEquals(computer.price(), new BigDecimal(617));
