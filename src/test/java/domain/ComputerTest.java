@@ -23,19 +23,6 @@ public class ComputerTest {
         SolidStateDisk solidStateDisk = new SolidStateDisk(new BigDecimal(50));
         this.optionalComponents = Arrays.asList(cooler, wiFiAntenna, graphicCard, solidStateDisk);
 
-        MicroProcessor intelMicroProcessor = new MicroProcessor(new BigDecimal(300), new BigDecimal(100), BrandTypeMP.INTEL);
-        GraphicCardOnBoard nvidiaGraphicCardOnBoard = new GraphicCardOnBoard(BrandTypeMB.NVIDIA);
-        MicroProcessorSocket intelMicroProcessorSocket = new MicroProcessorSocket(BrandTypeMP.INTEL);
-        MicroProcessor amdMicroProcessor = new MicroProcessor(new BigDecimal(300), new BigDecimal(100), BrandTypeMP.AMD);
-        GraphicCardOnBoard amdGraphicCardOnBoard = new GraphicCardOnBoard(BrandTypeMB.AMD);
-        MicroProcessorSocket amdMicroProcessorSocket = new MicroProcessorSocket(BrandTypeMP.AMD);
-
-
-        Motherboard amdMotherBoard = new Motherboard(amdGraphicCardOnBoard, amdMicroProcessor , amdMicroProcessorSocket, new BigDecimal(100));
-        this.intelMotherBoard = new Motherboard(nvidiaGraphicCardOnBoard, intelMicroProcessor, intelMicroProcessorSocket, new BigDecimal(150));
-        this.powerSupply = new PowerSupply(90);
-        this.hardDriveDisk = new HardDriveDisk(new BigDecimal(30000), new BigDecimal(1000));
-
         //nvidia funciona solo con intel y amd solo con amd
 
 
@@ -44,9 +31,7 @@ public class ComputerTest {
     @Test
     public void ComputerWithOnlyRequiredComponentsPrice() {
         Computer computer = new ComputerBuilder()
-                                .withHardDriveDisk(hardDriveDisk)
-                                .withMotherBoard(intelMotherBoard)
-                                .withPowerSupply(powerSupply)
+                                .highPerformanceAmdComputer()
                                 .build();
         Assert.assertEquals(computer.price(), new BigDecimal(452));
 
@@ -60,9 +45,7 @@ public class ComputerTest {
     @Test
     public void ComputerWithRequiredAndOptionalComponentsPrice() {
         Computer computer = new ComputerBuilder()
-                .withHardDriveDisk(hardDriveDisk)
-                .withMotherBoard(intelMotherBoard)
-                .withPowerSupply(powerSupply)
+                .highPerformanceAmdComputer()
                 .withOptionalComponents(optionalComponents)
                 .build();
         Assert.assertEquals(computer.price(), new BigDecimal(617));

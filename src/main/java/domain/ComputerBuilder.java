@@ -1,5 +1,6 @@
 package domain;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,5 +44,29 @@ public class ComputerBuilder {
         return this.motherBoard == null
                 || this.powerSupply == null
                 || this.hardDriveDisk == null;
+    }
+
+    public ComputerBuilder highPerformanceAmdComputer() {
+        MicroProcessor amdMicroProcessor = new MicroProcessor(new BigDecimal(300), new BigDecimal(100), BrandTypeMP.AMD);
+        GraphicCardOnBoard amdGraphicCardOnBoard = new GraphicCardOnBoard(BrandTypeMB.AMD);
+        MicroProcessorSocket amdMicroProcessorSocket = new MicroProcessorSocket(BrandTypeMP.AMD);
+
+        this.motherBoard = new Motherboard(amdGraphicCardOnBoard, amdMicroProcessor, amdMicroProcessorSocket, new BigDecimal(150));
+        this.powerSupply = new PowerSupply(90);
+        this.hardDriveDisk = new HardDriveDisk(new BigDecimal(30000), new BigDecimal(1000));
+
+        return this;
+    }
+
+    public ComputerBuilder highPerformanceIntelComputer() {
+        MicroProcessor intelMicroProcessor = new MicroProcessor(new BigDecimal(300), new BigDecimal(100), BrandTypeMP.INTEL);
+        GraphicCardOnBoard nvidiaGraphicCardOnBoard = new GraphicCardOnBoard(BrandTypeMB.NVIDIA);
+        MicroProcessorSocket intelMicroProcessorSocket = new MicroProcessorSocket(BrandTypeMP.INTEL);
+
+        this.motherBoard = new Motherboard(nvidiaGraphicCardOnBoard, intelMicroProcessor, intelMicroProcessorSocket, new BigDecimal(150));
+        this.powerSupply = new PowerSupply(90);
+        this.hardDriveDisk = new HardDriveDisk(new BigDecimal(30000), new BigDecimal(1000));
+
+        return this;
     }
 }
